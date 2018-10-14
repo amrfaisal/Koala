@@ -5,9 +5,9 @@ const path = require('path')
 const render = require('koa-ejs')
 const koaRouter = require('koa-router')
 const bodyParser = require('koa-bodyparser')
-const dbConnection = require('./src/database')
+// const dbConnection = require('./src/database')
 
-const koala = require('./src/controllers/Koala')
+// const koala = require('./src/controllers/Koala')
 
 const app = new koa()
 const router = new koaRouter()
@@ -30,11 +30,11 @@ render(app, {
     debug: true
 })
 
-dbConnection.connect()
+// dbConnection.connect()
 
 app.use(bodyParser())
 
-router.get('koala_edit', '/edit', koala.edit)
+// router.get('koala_edit', '/edit', koala.edit)
 
 router.get('koala', '/', (ctx) => {
 
@@ -70,6 +70,9 @@ router.get('koala', '/', (ctx) => {
     })
 })
 
+router.get('koala', '/error', (ctx) => {
+    ctx.throw('Test Error Message', 500)
+})
 // router.post('koala_save', '/', koala.add)
 
 // router.post('koala_update', '/edit', koala.update)
@@ -77,4 +80,4 @@ router.get('koala', '/', (ctx) => {
 app.use(router.routes())
    .use(router.allowedMethods())
 
-app.listen(1234, () => console.log('running on port 1234'))
+app.listen(3000, () => console.log('running on port 3000'))
